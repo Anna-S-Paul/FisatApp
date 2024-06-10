@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import NavFisat from './NavFisat'
+import axios from 'axios'
 
 const AddFisat = () => {
     const [data,setData]=useState(
         {
-        "fname":"",
-        "lname":"",
+        "firstname":"",
+        "lastname":"",
         "college":"",
         "dob":"",
         "course":"",
@@ -19,7 +20,17 @@ const AddFisat = () => {
     }
     const readValue=()=>{
         console.log(data)
-    }
+    axios.post("https://courseapplogix.onrender.com/addstudents",data).then(
+        (response)=>{
+            console.log(response.data)
+            if (response.data.status=="success") {
+                alert("Successfully added")
+            } else {
+               alert("Error") 
+            }
+        }
+    ).catch()
+}
   return (
     <div>
         <NavFisat/>
@@ -30,13 +41,13 @@ const AddFisat = () => {
                         <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
 
                             <label htmlFor="" className="form-label">First-name:</label>
-                            <input type="text" className="form-control" name='fname' value={data.fname} onChange={inputHandler} />
+                            <input type="text" className="form-control" name='firstname' value={data.firstname} onChange={inputHandler} />
 
                         </div>
                         <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
 
                         <label htmlFor="" className="form-label">Last-name:</label>
-                        <input type="text" className="form-control" name='lname' value={data.lname} onChange={inputHandler}/>
+                        <input type="text" className="form-control" name='lastname' value={data.lastname} onChange={inputHandler}/>
 
                         </div>
                         <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
